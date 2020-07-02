@@ -1,45 +1,117 @@
 const db = require("../models");
-const inventories = db.inventory;
+const { sequelize } = require("../models");
+const { Router } = require("express");
+//const { sequelize } = require("../models");
+const newproduct= db.tutorials;
+const customerinfo=db.custs;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Tutorial
-exports.create = (req, res) => {
-    if (!req.body.Productname) {
-        res.status(400).send({
-          message: "Content can not be empty!"
-        });
-        return;
-      }
-    
-  
+exports.createProduct = (req, res) => {
+  // Validate request
+  if (!req.body.Productname) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+    return;
+  }
 
-const newitem = {
+  // Create a Tutorial
+  const tutorial = {
     Productname: req.body.Productname,
     Serialno: req.body.Serialno,
     Quantity: req.body.Quantity,
     Price: req.body.Price,
-    Name: req.body.Name
-  };
+    Name: req.body.Name,
+     };
 
   // Save Tutorial in the database
-  inventories.create(newitem)
+  newproduct.upsert(tutorial)
     .then(data => {
       res.send(data);
     })
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while adding the data."
+          err.message || "Some error occurred while creating the Tutorial."
       });
     });
+
 };
 
-// Retrieve all Tutorials from the database.
-exports.findAll = (req, res) => {
-    const Productname = req.query.title;
-    var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
+exports.createCustomer= (req,res)=>
+{
+  if (!req.body.Customername) {
+    res.status(400).write({
+      message: "Content can not be empty!"
+    });
+    return;
+  }
+
+  // Create a Tutorial
+  const cust = {
+    Customername: req.body.Customername,
+    CustomerAdress: req.body.Adress,
+    Currentdate: req.body.Date,
+    pding: req.body.pding,
+    Serialno: req.body.Serialno,
+    Quantity: req.body.Quantity,
+    Price: req.body.Price,
+    Name: req.body.Name
+   // //Price: req.body.Price,
+   // Name: req.body.Name,
+     };
+  // Save Tutorial in the database
+  customerinfo.create(cust)
+    
+  .then(data => {
+   res.send(data)
+  })
+  .catch(err => {
+    res.status(500).send({
+      message:
+        err.message || "Some error occurred while creating the Tutorial."
+    });
+  }); 
   
-    inventories.findAll({ where: condition })
+  /*  newproduct.create(cust)
+    .then(data => {
+     res.write(res.statusCode.toString(data))
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while creating the Tutorial."
+      });
+    });*/
+   
+    
+   
+
+
+};
+// Retrieve all Tutorials from the database.
+exports.findAllProds = (req, res) => {
+    const Productname = req.query.Productname;
+    var condition = Productname ? { Productname: { [Op.like]: `%${Productname}%` } } : null;
+  
+    newproduct.findAll({ where: condition })
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while retrieving."
+        });
+      });
+  };
+
+  exports.findAllSales = (req, res) => {
+    const Customername= req.query.Customername;
+    var condition = Customername ? { Customername: { [Op.like]: `%${Customername}%` } } : null;
+  
+    customerinfo.findAll({ where: condition })
       .then(data => {
         res.send(data);
       })
@@ -52,9 +124,10 @@ exports.findAll = (req, res) => {
   };
 
 // Find a single Tutorial with an id
-exports.findOne = (req, res) => {  const id = req.params.id;
+exports.findOne = (req, res) => {  
+  const Productname = req.params.Productname;
 
-    inventories.findByPk(id)
+  newproduct.findByPk(Productname)
       .then(data => {
         res.send(data);
       })
@@ -64,19 +137,33 @@ exports.findOne = (req, res) => {  const id = req.params.id;
         });
       });
   };
+
+  exports.findDate = (req, res) => {  
+    const Currentdate = req.params.Currentdate;
+  
+    customerinfo.findByPk(Currentdate)
+        .then(data => {
+          res.send(data);
+        })
+        .catch(err => {
+          res.status(500).send({
+            message: "Error retrieving with id=" + id
+          });
+        });
+    };
   
 
 // Update a Tutorial by the id in the request
-exports.update = (req, res) => {
-    const id = req.params.id;
+exports.updateProds = (req, res) => {
+    const Productname = req.params.Productname;
 
-    inventories.update(req.body, {
-      where: { id: id }
+    newproduct.update(req.body, {
+      where: { Productname: Productname }
     })
       .then(num => {
         if (num == 1) {
           res.send({
-            message: "It was updated successfully."
+            
           });
         } else {
           res.send({
@@ -95,7 +182,7 @@ exports.update = (req, res) => {
 // Delete a Tutorial with the specified id in the request
 exports.delete = (req, res) => {
         const id = req.params.id;
-        inventories.destroy({
+        newproduct.destroy({
           where: { id: id }
         })
           .then(num => {
@@ -119,7 +206,7 @@ exports.delete = (req, res) => {
 
 // Delete all Tutorials from the database.
 exports.deleteAll = (req, res) => {
-    inventories.destroy({
+  newproduct.destroy({
       where: {},
       truncate: false
     })
@@ -136,7 +223,7 @@ exports.deleteAll = (req, res) => {
 
 // Find all published Tutorials
 exports.findAllPublished = (req, res) => {
-        inventories.findAll({ where: { published: true } })
+  newproduct.findAll({ where: { published: true } })
           .then(data => {
             res.send(data);
           })
