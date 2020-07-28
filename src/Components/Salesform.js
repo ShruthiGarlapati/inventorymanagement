@@ -31,6 +31,8 @@ class Salesform extends Component {
         this.saveTutorial=this.saveTutorial.bind(this);
         this.createPdf=this.createPdf.bind(this);
         this.createform=this.createform.bind(this);
+        this.setActiveTutorial = this.setActiveTutorial.bind(this);
+        this.retrieveFields = this.retrieveFields.bind(this);
         //this.setActiveTutorial = this.setActiveTutorial.bind(this);
         //this.retrieveTutorials = this.retrieveTutorials.bind(this);
             
@@ -47,6 +49,10 @@ class Salesform extends Component {
               Quantity:"",
               Price:"",
               Name:"",
+              tutorials: [],
+              currentTutorial: null,
+              currentIndex: -1,
+              searchTitle: "",
 
             errors: {}
           } 
@@ -135,24 +141,27 @@ class Salesform extends Component {
 
      }
 
-      retrieveFields() {
-        ManagementService.findByTitle(this.state.pding)()
-         .then(response => {
-          this.setState({
-            tutorial: response.data
-          });
-          console.log(response.data);
-        })
-        .catch(e => {
-          console.log(e);
-        });
-    }
-   /* setActiveTutorial(tutorial, index) {
+     
+    setActiveTutorial(tutorial, index) {
       this.setState({
         currentTutorial: tutorial,
         currentIndex: index
       });
-    }*/
+    }
+    
+    retrieveFields() {
+      ManagementService.findByTitle(this.state.pding)()
+       .then(response => {
+        this.setState({
+          tutorials: response.data
+        });
+        console.log(response.data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+    }
+
     saveTutorial() {
       var data = {
         Customername: this.state.Customername,
@@ -164,6 +173,7 @@ class Salesform extends Component {
         Price: this.state.Price,
         Name: this.state.Name,
       };
+     
   
       ManagementService.createCustomer(data)
         .then(response => {
@@ -185,6 +195,7 @@ class Salesform extends Component {
         .catch(e => {
           console.log(e);
         });
+        
       }
       createform()
       {
@@ -281,10 +292,9 @@ class Salesform extends Component {
    <section>
      <Title name="Invoice number"></Title>
      <div className="text-center">
-     <h3 >Invoice number:      
-       <ButtonContainer onClick={this.createPdf} > 123 </ButtonContainer>
-       Click to download
-     </h3>
+     <h3  >    
+          <ButtonContainer onClick={this.createPdf}  > 123 </ButtonContainer>
+      </h3>
      </div>
    </section>
 </div>
@@ -297,7 +307,7 @@ class Salesform extends Component {
 export default Salesform;
 const ProductWrapper=styled.div`
 .bg{
-  background-image: url("https://cutewallpaper.org/21/tumblr-blue-wallpaper/Pastels-Wallpaper-Tumblr-Kids-Iv-Clouds-Blue-Softtechhome.jpg");
+  background-image: url("https://cutewallpaper.org/21/tumblr-plain-backgrounds/Images-of-Light-Blue-Background-Tumblr-SpaceHero.jpg");
   
   height: 100%;
 

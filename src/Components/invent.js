@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Title, {title} from "./Title";
 import {ButtonContainer} from "./ButtonContainer";
 import Autocompletes from "./Autocomplete";
+import styled from 'styled-components';
 
 export default class TutorialsList extends Component {
   constructor(props) {
@@ -95,7 +96,8 @@ export default class TutorialsList extends Component {
     const { Productname, searchTitle, tutorials, currentTutorial, currentIndex } = this.state;
 
     return (
-      <div className="list row">
+      <ProductWrapper>
+      <div className="list row bg">
         <div className="col-md-8">
           <div className="input-group mb-3">
             <input
@@ -118,10 +120,18 @@ export default class TutorialsList extends Component {
             <ButtonContainer className="btn btn-outline-secondary" type="button" onClick={this.clearscreen}>Back to inventory</ButtonContainer>
                      </div>
         </div>
+       <div>
+       <Autocompletes
+     
+        prods={this.state.tutorials}
+      />
+        console.log(tutoials)
+       </div>
          <div className="col-lg-12">
           <Title title="Inventory"/>
           <div className="table">
           <table className="table table-responsive w-1500 d-block d-md-table ">
+            <tbody>
           <tr className={"table-primary"}>
                   <th>Productname</th>
                   <th>Serialno</th>
@@ -146,11 +156,61 @@ export default class TutorialsList extends Component {
                    <td>{tutorial.Name}</td>
                 </tr>
               ))}
+              </tbody>
           </table>
           </div>
 
         </div>
              </div>
+             </ProductWrapper>
     );
   }
 }
+const ProductWrapper=styled.div`
+.bg{
+  background-image: url("https://cutewallpaper.org/21/tumblr-blue-wallpaper/Pastels-Wallpaper-Tumblr-Kids-Iv-Clouds-Blue-Softtechhome.jpg");
+  
+  height: 100%;
+
+  /* Center and scale the image nicely */
+
+}
+
+input {
+  border: 1px solid #999;
+  padding: 0.5rem;
+  width: 300px;
+}
+
+.no-suggestions {
+  color: #999;
+  padding: 0.5rem;
+}
+
+.suggestions {
+  border: 1px solid #999;
+  border-top-width: 0;
+  list-style: none;
+  margin-top: 0;
+  max-height: 143px;
+  overflow-y: auto;
+  padding-left: 0;
+  width: calc(300px + 1rem);
+}
+
+.suggestions li {
+  padding: 0.5rem;
+}
+
+.suggestion-active,
+.suggestions li:hover {
+  background-color: #008f68;
+  color: #fae042;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.suggestions li:not(:last-of-type) {
+  border-bottom: 1px solid #999;
+}
+`

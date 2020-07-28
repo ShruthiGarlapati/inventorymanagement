@@ -118,7 +118,8 @@ export default class SalesTracking extends Component {
 
      
 <ProductWrapper>
-      <div className="mx-auto bg">
+  <div className="bg">
+      <div className="mx-auto">
         <div className="col-md-3 text-center">
           <div className="input-group mb-3">
             <input
@@ -164,11 +165,9 @@ export default class SalesTracking extends Component {
         <input type="range" class="form-control-range" id="formControlRange"/>
       </div>
       </div>
-    
           <div className="col-lg-12">
-
           <table className="table table-responsive w-1500 d-block d-md-table ">
-             <tr className={"table-primary"}>
+             <tr className="table-primary">
                   <th>Customer name</th>
                   <th>Product name</th>
                   <th>Serial no</th>
@@ -196,9 +195,9 @@ export default class SalesTracking extends Component {
                   </tr>
               ))}
           </table>
-
-          )
+          
         </div>
+      </div>
       </div>
       </ProductWrapper>
     );
