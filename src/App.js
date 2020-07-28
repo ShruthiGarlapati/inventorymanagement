@@ -13,7 +13,10 @@ import { ButtonContainer } from './Components/ButtonContainer';
 import AddTutorial from './Components/tuts';
 import Product from './Components/Product';
 import TutorialsList from './Components/invent';
+<<<<<<< HEAD
 import home from './Components/home';
+=======
+>>>>>>> 134b5d9e10fe032a1078c5dbb2e0fc55cf94b796
 //import Salesform from './Components/salesform1';
 
 class App extends Component
@@ -23,8 +26,12 @@ class App extends Component
     <React.Fragment>
     <Nav></Nav>
     <Switch>
+<<<<<<< HEAD
     <Route exact path ="/" component= {home}/>
     <Route  path="/New" component={NewItemTab}/>
+=======
+    <Route exact path="/" component={NewItemTab}/>
+>>>>>>> 134b5d9e10fe032a1078c5dbb2e0fc55cf94b796
     <Route path="/salesform" component={Salesform} />
     <Route path="/Inventory" component={TutorialsList} />
     <Route path="/Salestracking" component={SalesTracking} />
@@ -36,4 +43,8 @@ class App extends Component
   );
 }
 }
+<<<<<<< HEAD
 export default App;
+=======
+export default App;
+>>>>>>> 134b5d9e10fe032a1078c5dbb2e0fc55cf94b796

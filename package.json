@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "inventorymanagement",
   "version": "0.1.0",
   "private": true,
@@ -27,25 +28,28 @@
     "react-typeahead": "^2.0.0-alpha.8",
     "styled-components": "^5.1.1"
   },
+=======
+  "name": "nodejs-api",
+  "version": "1.0.0",
+  "description": "api for my app",
+  "main": "server.js",
+>>>>>>> 134b5d9e10fe032a1078c5dbb2e0fc55cf94b796
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "keywords": [
+    "nodejs",
+    "express",
+    "react",
+    "mysql"
+  ],
+  "author": "Shruthi",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mysql2": "^2.1.0",
+    "sequelize": "^5.21.13"
   }
 }
